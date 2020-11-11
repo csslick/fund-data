@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax Test</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    table {
+      margin: 20px auto;
+    }
+    .show { display: block!important;}
+    .loader { display: none;}
+  </style>
+</head>
+<body>
+  <section class="container">
+    <h1>Fund Info</h1>
+    <button>조회하기</button>
+    <p class="loader">loading data...</p>
+    <table class="table">
+      <tr>
+        <th>회사명</th>
+        <th>상품명</th>
+        <th>1개월 누적 수익률(%)</th>
+        <th>3개월누적수익률(%)</th>
+        <th>6개월누적수익률(%))</th>
+        <th>12개월누적수익률(%))</th>
+        <th>12개월누적수익률(%))</th>
+        <th>펀드등급</th>
+        <th>펀드유형</th>
+        <th>선취수수료(%)</th>
+        <th>총보수(%</th>
+      </tr>
+    </table>
+  </section>
+
+  <script>
+    $(function(){
+      /*
+        company: 회사명
+        item_name: 상품명
+        yield1: 1개월 누적 수익률(%)
+        yield3: 3개월누적수익률(%)
+        yield6: 6개월누적수익률(%)
+        yield12: 12개월누적수익률(%)
+        fund_rank: 펀드등급
+        fund_type: 펀드유형(주식형, 채권혼합형 등)
+        fees: 선취수수료(%)
+        total_reward 총보수(%)
+      */
+
+      // 불러온 데이터 출력
+      function show_data(data) {
+        for (var i in data) {
+          var company = data[i].company;
+          var item_name = data[i].item_name;
+          var yield1 = data[i].yield1;
+          var yield3 = data[i].yield3;
+          var yield6 = data[i].yield6;
+          var yield12 = data[i].yield12;
+          var fund_rank = data[i].fund_rank;
+          var fund_type = data[i].fund_type;
+          var fees = data[i].fees;
+          var total_reward = data[i].total_reward;
+          var tr = 
+            `<tr>
+              <td>${company}</td>
+              <td>${item_name}</td>
+              <td>${yield1}</td>
+              <td>${yield3}</td>
+              <td>${yield6}</td>
+              <td>${yield12}</td>
+              <td>${fund_rank}</td>
+              <td>${fund_type}</td>
+              <td>${fees}</td>
+              <td>${total_reward}</td>
+            `
+          $('table').append(tr);
+        }
+      }
+
+      $('button').click(function(){
+        $('.loader').addClass('show');
+        $.ajax({
+          url: 'fund.json',
+          success: function(res) {
+            console.log(res);
+            show_data(res);
+            $('.loader').removeClass('show');
+          }
+        })
+      })
+
+    }) // end $
+
+  </script>
+</body>
+</html>
