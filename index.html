@@ -28,7 +28,6 @@
         <th>3개월누적수익률(%)</th>
         <th>6개월누적수익률(%))</th>
         <th>12개월누적수익률(%))</th>
-        <th>12개월누적수익률(%))</th>
         <th>펀드등급</th>
         <th>펀드유형</th>
         <th>선취수수료(%)</th>
@@ -54,6 +53,7 @@
 
       // 불러온 데이터 출력
       function show_data(data) {
+        console.log(data.length);
         for (var i in data) {
           var company = data[i].company;
           var item_name = data[i].item_name;
@@ -69,14 +69,14 @@
             `<tr>
               <td>${company}</td>
               <td>${item_name}</td>
-              <td>${yield1}</td>
-              <td>${yield3}</td>
-              <td>${yield6}</td>
-              <td>${yield12}</td>
+              <td>${yield1}%</td>
+              <td>${yield3}%</td>
+              <td>${yield6}%</td>
+              <td>${yield12}%</td>
               <td>${fund_rank}</td>
               <td>${fund_type}</td>
-              <td>${fees}</td>
-              <td>${total_reward}</td>
+              <td>${fees}%</td>
+              <td>${total_reward}%</td>
             `
           $('table').append(tr);
         }
